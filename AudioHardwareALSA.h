@@ -199,6 +199,8 @@ public:
         return ALSAStreamOps::getParameters(keys);
     }
 
+    virtual status_t    getRenderPosition(uint32_t *dspFrames);
+
     status_t            open(int mode);
     status_t            close();
 };
@@ -247,6 +249,8 @@ public:
     {
         return ALSAStreamOps::getParameters(keys);
     }
+
+    virtual unsigned int  getInputFramesLost() const { return 0; }
 
     status_t            setAcousticParams(void* params);
 
