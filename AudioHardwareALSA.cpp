@@ -264,9 +264,4 @@ status_t AudioHardwareALSA::dump(int fd, const Vector<String16>& args)
     return NO_ERROR;
 }
 
-/*status_t AudioStreamOutALSA::getRenderPosition(uint32_t *dspFrames)
-{
-    return INVALID_OPERATION;
-}*/
-
 }       // namespace android
