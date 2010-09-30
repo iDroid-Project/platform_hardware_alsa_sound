@@ -260,7 +260,7 @@ public:
     // Audio driver is expected to reset the value to 0 and restart counting upon returning the current value by this function call.
     // Such loss typically occurs when the user space process is blocked longer than the capacity of audio driver buffers.
     // Unit: the number of input audio frames
-    virtual unsigned int  getInputFramesLost() const { return 0; }
+    virtual unsigned int  getInputFramesLost() const;
 
     status_t            setAcousticParams(void* params);
 
