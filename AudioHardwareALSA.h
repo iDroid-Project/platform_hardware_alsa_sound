@@ -60,6 +60,7 @@ struct alsa_device_t {
     status_t (*init)(alsa_device_t *, ALSAHandleList &);
     status_t (*open)(alsa_handle_t *, uint32_t, int);
     status_t (*close)(alsa_handle_t *);
+    status_t (*standby)(alsa_handle_t *);
     status_t (*route)(alsa_handle_t *, uint32_t, int);
 };
 
@@ -199,10 +200,15 @@ public:
         return ALSAStreamOps::getParameters(keys);
     }
 
+    // return the number of audio frames written by the audio dsp to DAC since
+    // the output has exited standby
     virtual status_t    getRenderPosition(uint32_t *dspFrames);
 
     status_t            open(int mode);
     status_t            close();
+
+private:
+    uint32_t            mFrameCount;
 };
 
 class AudioStreamInALSA : public AudioStreamIn, public ALSAStreamOps
@@ -250,6 +256,10 @@ public:
         return ALSAStreamOps::getParameters(keys);
     }
 
+    // Return the amount of input frames lost in the audio driver since the last call of this function.
+    // Audio driver is expected to reset the value to 0 and restart counting upon returning the current value by this function call.
+    // Such loss typically occurs when the user space process is blocked longer than the capacity of audio driver buffers.
+    // Unit: the number of input audio frames
     virtual unsigned int  getInputFramesLost() const { return 0; }
 
     status_t            setAcousticParams(void* params);
@@ -258,6 +268,9 @@ public:
     status_t            close();
 
 private:
+    void                resetFramesLost();
+
+    unsigned int        mFramesLost;
     AudioSystem::audio_in_acoustics mAcoustics;
 };
 
