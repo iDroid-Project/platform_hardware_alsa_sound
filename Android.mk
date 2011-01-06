@@ -23,7 +23,7 @@ ifeq ($(strip $(BOARD_USES_ALSA_AUDIO)),true)
 	ALSAControl.cpp
 
   LOCAL_MODULE := libaudio
-
+  LOCAL_MODULE_TAGS := eng
   LOCAL_STATIC_LIBRARIES += libaudiointerface
 
   LOCAL_SHARED_LIBRARIES := \
@@ -54,7 +54,7 @@ endif
   LOCAL_SRC_FILES := AudioPolicyManagerALSA.cpp
 
   LOCAL_MODULE := libaudiopolicy
-
+  LOCAL_MODULE_TAGS := eng
   LOCAL_WHOLE_STATIC_LIBRARIES += libaudiopolicybase
 
   LOCAL_SHARED_LIBRARIES := \
@@ -87,7 +87,7 @@ endif
   	liblog
 
   LOCAL_MODULE:= alsa.default
-
+  LOCAL_MODULE_TAGS := eng
   include $(BUILD_SHARED_LIBRARY)
 
 # This is the default Acoustics module which is essentially a stub
@@ -107,7 +107,7 @@ endif
   LOCAL_SHARED_LIBRARIES := liblog
 
   LOCAL_MODULE:= acoustics.default
-
+  LOCAL_MODULE_TAGS := eng
   include $(BUILD_SHARED_LIBRARY)
 
 endif
